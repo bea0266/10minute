@@ -10,7 +10,7 @@
             <span class="item-title">{{ item.title }}</span>
             <button class="star_btn" @click="$event.stopPropagation
             ();setImportant(item);">
-              <img :src="isImportant(item)"/>
+              <img :src="item.importance ? starOnImg : starOffImg"/>
             </button>
           </div> 
         </div>
@@ -129,26 +129,9 @@ function openDetail() {
 }
 
 function setImportant(task) {
-  if (!task.importance) {
-    
-    task.importance = true;
-    starSrc.value = starOnImg  
-  } else {
-    task.importance = false;  
-    starSrc.value = starOffImg
-  }
-  console.log(tasks.value)
-  
+  task.importance = !task.importance
+  console.log(tasks.value);
 }
 
-function isImportant(item) {
-  // if(item.importance) {
-  //    starSrc.value = starOnImg
-  // } else {
-  //    starSrc.value = starOffImg
-  // }
-
-  // return starSrc.value
-}
 
  </script> 
