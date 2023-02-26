@@ -1,6 +1,11 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import Task from './views/Task.vue';
+import { useRoute, useRouter } from 'vue-router';
+
+const route = useRoute()
+const router = useRouter();
+
 
 const nav = ref(null)
 const isMenuOpen = ref(false)
@@ -11,6 +16,15 @@ function openSide() {
 function closeSide() {
   isMenuOpen.value = false
 }
+
+function changeRouterView(viewName) {
+  router.push(viewName)
+}
+
+onMounted(() => {
+  router.replace('Task')
+})
+
 </script>
 
 <template>
@@ -25,13 +39,13 @@ function closeSide() {
     <div id="sidebar" :class="{'open': isMenuOpen }" ref="nav">
        <button type="button" @click="closeSide()"><img src="./assets/image/common/ico_back.svg" /></button>
        <div id="nav-list">
-           <div class="item">체크리스트/업무 관리</div>
-           <div class="item">스톱워치</div>           
-           <div class="item">통계</div>
+           <div class="item" @click="changeRouterView('Task')">체크리스트/업무 관리</div>
+           <div class="item" @click="changeRouterView('Time')">스톱워치</div>           
+           <div class="item" @click="changeRouterView('Dashboard')">통계</div>
        </div> 
     </div>
     <div id="cont">
-        <Task></Task>
+        <router-view></router-view>
     </div>
 </template>
 
