@@ -132,10 +132,10 @@ function setImportant(task) {
   if (!task.importance) {
     
     task.importance = true;
-    starSrc.value = starOnImg  
+    // starSrc.value = starOnImg  
   } else {
     task.importance = false;  
-    starSrc.value = starOffImg
+    // starSrc.value = starOffImg
   }
   console.log(tasks.value)
   
