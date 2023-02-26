@@ -1,6 +1,5 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import Task from './views/Task.vue';
 import { useRoute, useRouter } from 'vue-router';
 
 const route = useRoute()
