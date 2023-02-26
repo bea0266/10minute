@@ -1,0 +1,214 @@
+#task-side {
+    position: fixed;
+    top: 55px;
+    right:0;
+    width:300px;
+    height:calc(100% - 55px);
+    background-color: rgb(232, 232, 232); 
+   
+    #taskside-tit {
+        border-bottom: 1px solid #000000;
+        background-color: #1539a4;
+        h4 {
+          margin-left: 5px; 
+          line-height: 45px;
+          color: white; 
+          font-family: 'KJ-Bold';
+        }
+    }
+
+    .list-item-area {
+        $border_radius: 1px; 
+
+        overflow-y: scroll;
+        height: 100%;
+        border-collapse: separate;
+
+        &::-webkit-scrollbar {
+            width:10px;
+            background-color: #aeacac;
+        }
+        &::-webkit-scrollbar-thumb{
+            width:10px;
+            background-color: #1da2df;
+        }
+
+        .item-box {
+            border-bottom: 1px solid #000;
+            background-color: #ffffff;
+            margin: 10px;
+            border-radius: 5px;
+            width: 'auto';
+            height: 130px;
+            
+
+            &:first-child {
+                border-bottom: 1px solid #000;
+            }
+
+            .tit {
+               font-weight: bold;
+               padding: 5px;
+               font-family: 'KJ-Bold';
+            }
+        }
+
+    }
+
+}
+
+#task-detail {
+    position:absolute;
+    top:0;
+    color:#ffffff;
+    right:-300px;
+    width: 300px;
+    height:100%;
+    background-color: #1572a4;
+    z-index:999;
+    transition: ease 0.3s;
+    
+    &.on {
+        position:absolute;
+        top:0;
+        color:#ffffff;
+        right:0;
+        width: 300px;
+        height:100%;
+        background-color: #1572a4;
+        z-index:999;
+        
+    }
+
+    .tit {
+        font-size:24px;
+        padding:5px;
+        font-family: 'KJ-Bold';
+    }
+    .sub_tit {
+        padding:5px;
+        font-size:18px;
+    }
+    .input {
+        padding:5px;
+        font-size:15px;
+    }
+}
+
+#task-list {
+    width: calc(100% - 550px);
+    box-shadow:-5px 10px 5px #dedcdc;
+    border-radius: 10px;
+    background-color: #e7e7e7;
+    margin: 15px 200px;
+    height: 350px;
+
+    .tit h4 {
+        line-height: 40px;
+        margin-left: 7px;
+        font-family: 'KJ-Bold';
+        padding: 5px;
+    }
+
+    .list-item-area {
+        $border_radius: 10px; 
+
+        overflow-y: scroll;
+        height: 300px;
+         
+        &::-webkit-scrollbar {
+            width:10px;
+            border-radius: $border_radius;
+            background-color: #bdbdbd;
+        }
+        &::-webkit-scrollbar-thumb{
+            width:10px;
+            border-radius: $border_radius;
+            background-color: #1da2df;
+        }
+
+        .item-box {
+            position: relative;
+            width: 95%;
+            height: 45px;
+            font-family: 'KJ-Light';
+            background-color: #ffffff;
+            margin-left: 25px;
+            margin-bottom: 18px;
+            border-radius: 10px;
+            box-shadow: -5px 2px 7px #dedcdc;
+    
+    
+            .circle_btn {
+                background: none;
+                border: none;
+                margin: 7px 3px;
+                cursor: pointer;
+    
+                img {
+                    width:25px;
+                    height:25px;
+                }
+    
+            }
+
+            .star_btn {
+                background: none;
+                border: none;
+                margin: 7px 3px;
+                float: right;
+                cursor: pointer;
+                
+                img {
+                    width:25px;
+                    height:25px;
+                }
+    
+            }
+    
+            .item-title {
+                position: absolute;
+                top: 10px;
+                left: 40px;
+                display: inline-block;
+                font-size: 15px;
+                width: 550px;
+            }
+    
+        }        
+    }
+    
+}
+
+.add-task {
+    position: fixed;
+    color: #fef8f8;
+    width:1050px;
+    height: 70px;
+    background-color: #0f96da;
+    border: 1px solid #000;
+    bottom: 5px;
+    box-shadow: -3px 2px 6px rgb(45, 44, 44);
+    border:none;
+    border-radius: 10px 10px 0 0;
+    left: 15%;
+
+    input {
+        position: absolute;
+        font-family: 'KJ-Bold';
+        top:10px;
+        left:10px;
+        display: block;
+        width:98%;
+        font-size:17px;
+        border-radius: 5px;
+        border: none;
+        height: 50px;
+      
+
+    }
+}
+.tit {
+    text-align: left;
+    
+}
