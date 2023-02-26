@@ -1,8 +1,8 @@
 import { createWebHistory, createRouter } from "vue-router";
 
-import Task from '../views/Task.vue'
-import Time from '../views/Time.vue'
-import DashBoard from '../views/DashBoard.vue'
+import Task from '@/views/Task.vue'
+import Time from '@/views/Time.vue'
+import DashBoard from '@/views/DashBoard.vue'
 
 const routes = [
     {
