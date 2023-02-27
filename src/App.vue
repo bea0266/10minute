@@ -33,7 +33,6 @@ onMounted(() => {
         <button type="button"><img src="./assets/image/common/ico_setting.svg" /></button>
         <button type="button"><img src="./assets/image/common/ico_user.svg" /></button>
       </span>  
- 
     </div>
     <div id="sidebar" :class="{'open': isMenuOpen }" ref="nav">
        <button type="button" @click="closeSide()"><img src="./assets/image/common/ico_back.svg" /></button>

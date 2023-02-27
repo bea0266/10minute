@@ -1,22 +1,8 @@
 <template>
-    <div id="task-list">
-      <div class="tit"><span><h4>할 일</h4></span></div>
-
-        <div class="list-item-area">
-          <div v-for="item in tasks" class="item-box" @click="openDetail()">
-            <button class="circle_btn">
-              <img src="../assets/image/contents/ico_circle.svg"/>
-            </button>
-            <span class="item-title">{{ item.title }}</span>
-            <button class="star_btn" @click="$event.stopPropagation
-            ();setImportant(item);">
-              <img :src="item.importance ? starOnImg : starOffImg"/>
-            </button>
-          </div> 
-        </div>
-    </div>
-
-    <div ref="taskDetail" :class="{ 'on': toggleClass }" id="task-detail">
+    <TaskList @openDetail="openDetail()" :tasks="tasks"></TaskList>
+    
+    <!--  TaskDetail.vue component(start) -->
+    <div :class="{ 'on': toggleClass }" id="task-detail">
       <div class="tit">
         <span>상세 설정</span>
       </div>
@@ -34,20 +20,21 @@
       <div class="sub_tit">반복</div>
       <div class="input">
         <select>
-          <option value="">매일</option>
-          <option value="">매주</option>
-          <option value="">매달</option>
+          <option value="day">매일</option>
+          <option value="week">매주</option>
+          <option value="month">매달</option>
         </select>
       </div>
       <div class="sub_tit">메모</div>
       <div class="input">
         <input type="text" />
       </div>
-        <button type="button" @click="getLog()">START</button>
+        <button type="button">START</button>
         <button type="button" @click="closeDetail()">CANCEL</button>
     </div>
+    <!--  TaskDetail.vue component(end) -->
 
-    
+    <!--  TaskSide.vue component(start) -->
     <div id="task-side">
         <div id="taskside-tit" class="tit">
           <span><h4>할 일 현황</h4></span>
@@ -58,14 +45,18 @@
           </div>
         </div>
     </div>
+    <!--  TaskSide.vue component(end) -->
+
+    <!--  AddTask.vue component(start) -->
     <div class="add-task">   
          <input type="text" placeholder="Enter 키 누르고 추가">
     </div>
+    <!--  AddTask.vue component(end) -->
 </template>
+
 <script setup>
 import { ref } from 'vue'
-import starOffImg from "../assets/image/contents/ico_star_off.svg"
-import starOnImg from "../assets/image/contents/ico_star_on.svg"
+import TaskList from '@/components/task/TaskList.vue'
 import axios from 'axios'
 
 axios.defaults.withCredentials = true;
@@ -119,7 +110,6 @@ const sideTasks = ref([
   }
 ])
 
-const starSrc = ref(starOffImg)
 function closeDetail() {
   toggleClass.value = false
 }
@@ -127,11 +117,5 @@ function closeDetail() {
 function openDetail() {
   toggleClass.value = true
 }
-
-function setImportant(task) {
-  task.importance = !task.importance
-  console.log(tasks.value);
-}
-
 
  </script> 

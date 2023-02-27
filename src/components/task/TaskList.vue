@@ -1,0 +1,37 @@
+<template>
+<div id="task-list">
+    <div class="tit"><span><h4>할 일</h4></span></div>
+
+      <div class="list-item-area">
+        <div v-for="item in tasks" class="item-box" @click="$emit('openDetail')">
+          <button class="circle_btn">
+            <img src="@/assets/image/contents/ico_circle.svg"/>
+          </button>
+          <span class="item-title">{{ item.title }}</span>
+          <button class="star_btn" @click="$event.stopPropagation
+          ();setImportant(item);">
+            <img :src="item.importance ? starOnImg : starOffImg"/>
+          </button>
+        </div> 
+      </div>
+  </div>
+</template>
+<script setup>
+import { ref, defineEmits } from 'vue'
+import starOffImg from "@/assets/image/contents/ico_star_off.svg"
+import starOnImg from "@/assets/image/contents/ico_star_on.svg"
+
+const emit = defineEmits(['openDetail'])
+
+const props = defineProps({
+    tasks: Array,
+    toggleClass: {
+       type: Boolean,
+       default: false
+    }
+})
+
+function setImportant(task) {
+  task.importance = !task.importance
+}
+</script>
