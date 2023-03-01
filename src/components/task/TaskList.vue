@@ -8,8 +8,7 @@
             <img src="@/assets/image/contents/ico_circle.svg"/>
           </button>
           <span class="item-title">{{ item.title }}</span>
-          <button class="star_btn" @click="$event.stopPropagation
-          ();setImportant(item);">
+          <button class="star_btn" @click="setImportant($event, item);">
             <img :src="setStarImg(item)"/>
           </button>
         </div> 
