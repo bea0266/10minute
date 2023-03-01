@@ -10,14 +10,14 @@
           <span class="item-title">{{ item.title }}</span>
           <button class="star_btn" @click="$event.stopPropagation
           ();setImportant(item);">
-            <img :src="item.importance ? starOnImg : starOffImg"/>
+            <img :src="setStarImg(item)"/>
           </button>
         </div> 
       </div>
   </div>
 </template>
 <script setup>
-import { ref, defineEmits } from 'vue'
+import { ref, computed } from 'vue'
 import starOffImg from "@/assets/image/contents/ico_star_off.svg"
 import starOnImg from "@/assets/image/contents/ico_star_on.svg"
 
@@ -31,7 +31,13 @@ const props = defineProps({
     }
 })
 
-function setImportant(task) {
+function setImportant(event, task) {
+  event.stopPropagation()
   task.importance = !task.importance
 }
+
+function setStarImg(item) {
+  return item.importance ? starOnImg : starOffImg
+}
+
 </script>
