@@ -5,7 +5,8 @@
 
 
     <!--  TaskSide.vue component(start) -->
-    <div id="task-side">
+    <TaskSide :sideTasks="sideTasks"></TaskSide>
+    <!-- <div id="task-side">
         <div id="taskside-tit" class="tit">
           <span><h4>할 일 현황</h4></span>
         </div>
@@ -14,7 +15,7 @@
              <span class="tit">{{ item.title }}</span>
           </div>
         </div>
-    </div>
+    </div> -->
     <!--  TaskSide.vue component(end) -->
 
     <!--  AddTask.vue component(start) -->
@@ -28,6 +29,7 @@
 import { ref } from 'vue'
 import TaskList from '@/components/task/TaskList.vue'
 import TaskDetail from '@/components/task/TaskDetail.vue'
+import TaskSide from '@/components/task/TaskSide.vue'
 import axios from 'axios'
 
 axios.defaults.withCredentials = true;

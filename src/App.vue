@@ -49,7 +49,8 @@ onMounted(() => {
 
 <style lang="scss">
 @import "./assets/scss/common.scss";
-@import "./assets/scss/content.scss";
+@import "./assets/scss/task.scss";
+@import "./assets/scss/time.scss";
 
     
 </style>

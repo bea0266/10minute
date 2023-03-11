@@ -19,14 +19,14 @@
 
     .list-item-area {
         $border_radius: 1px; 
-
+        background-color: #d7d3d3;
         overflow-y: scroll;
         height: 100%;
         border-collapse: separate;
 
         &::-webkit-scrollbar {
             width:10px;
-            background-color: #aeacac;
+            background-color: #b7b3b3;
         }
         &::-webkit-scrollbar-thumb{
             width:10px;
