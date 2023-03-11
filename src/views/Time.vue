@@ -20,7 +20,7 @@
 import { ref, watch } from 'vue'
 
 const off = ref(true)
-const todayStudyTime = ref('00:00:02');
+const todayStudyTime = ref('00:01:00');
 const overTime = ref('00:00:00');
 const realStudyTime = ref('00:00:00');
 const todayStudyInterval = ref();
@@ -81,7 +81,7 @@ function addZero(digit) {
 watch(() => todayStudyTime.value, () => {
     if(todayStudyTime.value === '00:00:00') {
         clearInterval(todayStudyInterval.value);
-        
+
         off.value = false;
 
         const overTimeArea = document.querySelectorAll('.time_area')[1];
