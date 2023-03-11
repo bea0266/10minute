@@ -1,8 +1,9 @@
 import { createWebHistory, createRouter } from "vue-router";
 
-import Task from '@/views/Task.vue'
-import Time from '@/views/Time.vue'
-import DashBoard from '@/views/Dashboard.vue'
+import Task from '@/views/Task.vue';
+import Time from '@/views/Time.vue';
+import DashBoard from '@/views/Dashboard.vue';
+import Setting from '@/views/Setting.vue';
 
 const routes = [
     {
@@ -21,6 +22,12 @@ const routes = [
         path: '/dashboard',
         name: 'Dashboard',
         component: DashBoard,
+    },
+
+    {
+        path: '/setting',
+        name: 'Setting',
+        component: Setting,
     },
   
 ];

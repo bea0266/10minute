@@ -30,7 +30,7 @@ onMounted(() => {
     <div id="header">
         <button type="button" @click="openSide()"><img src="./assets/image/common/menu-icon.svg" /></button>
       <span class="util">
-        <button type="button"><img src="./assets/image/common/ico_setting.svg" /></button>
+        <button type="button" @click="changeRouterView('Setting')"><img src="./assets/image/common/ico_setting.svg" /></button>
         <button type="button"><img src="./assets/image/common/ico_user.svg" /></button>
       </span>  
     </div>

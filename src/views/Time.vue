@@ -1,29 +1,37 @@
 <template>
     <div id="stop_watch_content">
         <p>하루 공부 남은 시간</p>
+
         <div class="time_area">
-            {{ todayStudyTime }}
+           {{ todayStudyTime }}
         </div>
+
         <div class="time_area" :class="{ off }">
            {{ overTime }}  
         </div>
+
         <p>순공 시간</p>
+
         <div class="time_area">
            {{ realStudyTime }}
         </div>
-        <button type="button">RESTART/STOP</button>
+
+        <button type="button" @click="stopTimer()">STOP</button>
         <button type="button">RESET</button>
         <button type="button" @click="startTimer()">START</button>
     </div>
 </template>
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, computed, watch } from 'vue';
+import { useSettingStore } from '@/store/setting';
+const settingStore = useSettingStore();
 
 const off = ref(true)
-const todayStudyTime = ref('00:01:00');
+const todayStudyTime = computed(() => settingStore.settingStudyTime);
 const overTime = ref('00:00:00');
 const realStudyTime = ref('00:00:00');
 const todayStudyInterval = ref();
+const realStudyInterval = ref();
 
 function startTimer() {
     todayStudyInterval.value = setInterval(() => {
@@ -72,6 +80,10 @@ function startTimer() {
 function reStartTimer() {
     return;   
     
+}
+
+function stopTimer() {
+    clearInterval(todayStudyInterval.value);  
 }
 
 function addZero(digit) {
