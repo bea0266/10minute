@@ -27,7 +27,7 @@ import { useSettingStore } from '@/store/setting';
 const settingStore = useSettingStore();
 
 const off = ref(true)
-const todayStudyTime = computed(() => settingStore.settingStudyTime);
+const todayStudyTime = ref(settingStore.settingStudyTime);
 const overTime = ref('00:00:00');
 const realStudyTime = ref('00:00:00');
 const todayStudyInterval = ref();
