@@ -6,7 +6,7 @@
            {{ todayStudyTime }}
         </div>
 
-        <div class="time_area" :class="{ off }">
+        <div class="time_area" :class="{ 'off': isOverTimeDisplayOff }">
            {{ overTime }}  
         </div>
 
@@ -25,8 +25,7 @@
 import { ref, computed, watch } from 'vue';
 import { useSettingStore } from '@/store/setting.js';
 const settingStore = useSettingStore();
-
-const off = ref(true)
+const isOverTimeDisplayOff = ref(true)
 const todayStudyTime = ref(settingStore.settingStudyTime);
 const overTime = ref('00:00:00');
 const realStudyTime = ref('00:00:00');
@@ -34,90 +33,77 @@ const todayStudyInterval = ref();
 const overStudyInterval = ref();
 const realStudyInterval = ref();
 
-function startTimer() {
-    if(off.value) {
-        todayStudyInterval.value = setInterval(() => {
-        let [hour, min, second] = todayStudyTime.value.split(':');
-         
-        if (parseInt(second) < 10) {
-            
-            if(parseInt(second) === 0) {
-                second = 59;
+function startTodayStudyTimer() {
+    todayStudyInterval.value = setInterval(() => {
+        let [hour, minute, seconds] = todayStudyTime.value.split(':');
+        
+        hour = parseInt(hour);
+        minute = parseInt(minute);
+        seconds = parseInt(seconds);
 
-                if(min > 0) {
-                    min = parseInt(min) - 1;
-                } else {
-                    min = 59;
+        if (seconds > 0) {
+            seconds -= 1;   
+        } else {
+            seconds = 59;
 
-                    if(hour > 0) {
-                        hour = parseInt(hour) - 1
-                    }
-                }
-
+            if (minute > 0) {
+                minute -= 1;
             } else {
-                second = parseInt(second) - 1;  
+
+                if(hour > 0) {
+                    hour -= 1;
+                    minute = 59;
+                }
             }
+        }
 
-         } else if (parseInt(second) === 0) {
-            second = 59;
-         } else {
-            second = second - 1; 
-         }
-         
-         if(hour < 10) {
-           hour = addZero(hour)
-         }
-         
-         if(min < 10) {
-           min = addZero(min)
-         }
-         
-         if(second < 10) {
-           second = addZero(second)
-         }
+        hour = hour < 10 ? addZero(hour) : hour;
+        minute = minute < 10 ? addZero(minute) : minute;
+        seconds = seconds < 10 ? addZero(seconds) : seconds;
 
-         todayStudyTime.value = [hour, min, second].join(':');
+        todayStudyTime.value = [hour, minute, seconds].join(':');
        
-      }, 1000)      
-    } else {
-        startOverTime();
-    }
-
+      }, 1000);          
 }
+
+
 
 function startOverTime() {
     overStudyInterval.value = setInterval(() => {
         let [hour, minute, seconds] = overTime.value.split(':');
+ 
+        hour = parseInt(hour);
+        minute = parseInt(minute);
+        seconds = parseInt(seconds);        
         
-        seconds = parseInt(seconds) + 1;
+        seconds += 1;
         
-        if(seconds >= 60) {
+        if(seconds === 60) {
             seconds = 0;
-            minute = parseInt(minute) + 1; 
+            minute += 1; 
             
             if(minute === 60) {
                 minute = 0;
-                hour = parseInt(hour) + 1;    
+                hour += 1;    
             }
         }
 
-        if(hour < 10) {
-           hour = addZero(hour);
-         }
-         
-         if(minute < 10) {
-           minute = addZero(minute);
-         }
-         
-         if(seconds < 10) {
-           seconds = addZero(seconds);
-         }
+        hour = hour < 10 ? addZero(hour) : hour;
+        minute = minute < 10 ? addZero(minute) : minute;
+        seconds = seconds < 10 ? addZero(seconds) : seconds;
 
-         overTime.value = [hour, minute, seconds].join(':');
+        overTime.value = [hour, minute, seconds].join(':');
 
-    }, 1000)
-
+    }, 1000);
     
+}
+
+function startTimer() {
+    if(isOverTimeDisplayOff.value) {
+        startTodayStudyTimer();
+    } else {
+        startOverTime();
+    }
 }
 
 function stopTimer() {
@@ -127,7 +113,7 @@ function stopTimer() {
 
 function reset() {
     overTime.value = '00:00:00';
-    off.value = true;
+    isOverTimeDisplayOff.value = true;
     todayStudyTime.value = settingStore.settingStudyTime;
 }
 
@@ -135,13 +121,11 @@ function addZero(digit) {
     return '0' + parseInt(digit);   
 }
 
-
-
 watch(() => todayStudyTime.value, () => {
     if(todayStudyTime.value === '00:00:00') {
         clearInterval(todayStudyInterval.value);
 
-        off.value = false;
+        isOverTimeDisplayOff.value = false;
 
         const overTimeArea = document.querySelectorAll('.time_area')[1];
 
