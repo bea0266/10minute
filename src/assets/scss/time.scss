@@ -17,6 +17,15 @@
         }
         
     }
+
+    .btn_control {
+        &.on {
+            display: inline-block;
+        }
+        &.off {
+            display: none;
+        }
+    }
    
 
 }

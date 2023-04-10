@@ -11,8 +11,8 @@
 </div>
 </template>
 <script setup>
-    defineProps({
-        sideTasks: Array
-    })
+defineProps({
+   sideTasks: Array
+});
 
 </script>

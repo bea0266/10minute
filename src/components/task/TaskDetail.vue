@@ -27,19 +27,15 @@
         <input type="text" />
       </div>
         <button type="button">START</button>
-        <button type="button" @click="$emit('closeDetail')">CANCEL</button>
+        <button type="button" @click="closeDetail()">CANCEL</button>
     </div>
 </template>
 <script setup>
-import { ref } from 'vue'
-
-const props = defineProps({
-    toggleClass : {
-        type: Boolean,
-        default: false
-    }
-})
-
-const emit = defineEmits(['closeDetail'])
+import { ref, computed } from 'vue'
+import { useTaskStore } from '@/store/task';
+const toggleClass = computed(() => useTaskStore().toggleSide);
+function closeDetail() {
+    useTaskStore().setSideToggle(false);
+}
 
 </script>

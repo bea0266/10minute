@@ -3,7 +3,7 @@
     <div class="tit"><span><h4>할 일</h4></span></div>
 
       <div class="list-item-area">
-        <div v-for="item in tasks" class="item-box" @click="$emit('openDetail')">
+        <div v-for="item in tasks" class="item-box" @click="openDetail()">
           <button class="circle_btn">
             <img src="@/assets/image/contents/ico_circle.svg"/>
           </button>
@@ -17,18 +17,17 @@
 </template>
 <script setup>
 import { ref, computed } from 'vue'
+import { useTaskStore } from '@/store/task';
 import starOffImg from "@/assets/image/contents/ico_star_off.svg"
 import starOnImg from "@/assets/image/contents/ico_star_on.svg"
 
-const emit = defineEmits(['openDetail'])
-
 const props = defineProps({
     tasks: Array,
-    toggleClass: {
-       type: Boolean,
-       default: false
-    }
 })
+
+function openDetail() {
+  useTaskStore().setSideToggle(true);
+}
 
 function setImportant(event, task) {
   event.stopPropagation()

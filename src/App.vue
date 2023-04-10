@@ -1,47 +1,26 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { useMenuStore } from './store/menu';
+import { useIndexStore } from './store';
+import { changeRouterView } from '@/util/utils';
+import Menu from '@/components/Menu.vue';
+import Header from '@/components/Header.vue';
 
 const route = useRoute()
 const router = useRouter();
-
-
-const nav = ref(null)
-const isMenuOpen = ref(false)
-
-function openSide() {
-  isMenuOpen.value = true
-}
-function closeSide() {
-  isMenuOpen.value = false
-}
-
-function changeRouterView(viewName) {
-  router.push(viewName)
-}
+const currentMenu = computed(() => useMenuStore().currentMenu);
+const loginUser = computed(() => useIndexStore().loginUser);
 
 onMounted(() => {
-  router.replace('Task')
-})
+  router.replace('Task');
+});
 
 </script>
 
 <template>
-    <div id="header">
-        <button type="button" @click="openSide()"><img src="./assets/image/common/menu-icon.svg" /></button>
-      <span class="util">
-        <button type="button" @click="changeRouterView('Setting')"><img src="./assets/image/common/ico_setting.svg" /></button>
-        <button type="button"><img src="./assets/image/common/ico_user.svg" /></button>
-      </span>  
-    </div>
-    <div id="sidebar" :class="{'open': isMenuOpen }" ref="nav">
-       <button type="button" @click="closeSide()"><img src="./assets/image/common/ico_back.svg" /></button>
-       <div id="nav-list">
-           <div class="item" @click="changeRouterView('Task')">체크리스트/업무 관리</div>
-           <div class="item" @click="changeRouterView('Time')">스톱워치</div>           
-           <div class="item" @click="changeRouterView('Dashboard')">통계</div>
-       </div> 
-    </div>
+    <Header @showHeaderLink="changeRouterView(router, currentMenu)"></Header>
+    <Menu @showMenuLink="changeRouterView(router, currentMenu)"></Menu>
     <div id="cont">
         <router-view></router-view>
     </div>

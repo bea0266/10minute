@@ -1,29 +1,7 @@
-<template>
-    <div id="stop_watch_content">
-        <p>하루 공부 남은 시간</p>
-
-        <div class="time_area">
-           {{ todayStudyTime }}
-        </div>
-
-        <div class="time_area" :class="{ 'off': isOverTimeDisplayOff }">
-           {{ overTime }}  
-        </div>
-
-        <p>순공 시간</p>
-
-        <div class="time_area">
-           {{ realStudyTime }}
-        </div>
-
-        <button type="button" @click="stopTimer()">STOP</button>
-        <button type="button" @click="reset()">RESET</button>
-        <button type="button" @click="startTimer()">START</button>
-    </div>
-</template>
 <script setup>
 import { ref, computed, watch } from 'vue';
 import { useSettingStore } from '@/store/setting.js';
+
 const settingStore = useSettingStore();
 const isOverTimeDisplayOff = ref(true)
 const todayStudyTime = ref(settingStore.settingStudyTime);
@@ -32,6 +10,7 @@ const realStudyTime = ref('00:00:00');
 const todayStudyInterval = ref();
 const overStudyInterval = ref();
 const realStudyInterval = ref();
+const isTimerActive = ref(false);
 
 function startTodayStudyTimer() {
     todayStudyInterval.value = setInterval(() => {
@@ -99,6 +78,7 @@ function startOverTime() {
 }
 
 function startTimer() {
+    isTimerActive.value = true;
     if(isOverTimeDisplayOff.value) {
         startTodayStudyTimer();
     } else {
@@ -107,6 +87,7 @@ function startTimer() {
 }
 
 function stopTimer() {
+    isTimerActive.value = false;
     clearInterval(todayStudyInterval.value);
     clearInterval(overStudyInterval.value);  
 }
@@ -134,5 +115,26 @@ watch(() => todayStudyTime.value, () => {
         startOverTime();
     }
 });
-
 </script> 
+<template>
+    <div id="stop_watch_content">
+        <p>하루 공부 남은 시간</p>
+        <div class="time_area">
+           {{ todayStudyTime }}
+        </div>
+        <div class="time_area" :class="{ 'off': isOverTimeDisplayOff }">
+           {{ overTime }}  
+        </div>
+        <p>순공 시간</p>
+        <div class="time_area">
+           {{ realStudyTime }}
+        </div> 
+        <button class="btn_control" :class="!isTimerActive ? { 'on' : true } : { 'off' : isTimerActive }" b type="button" @click="startTimer()">START</button>
+        <button class="btn_control" :class="isTimerActive ? { 'on' : isTimerActive } : { 'off' : true }" type="button" @click="stopTimer()">STOP</button>
+        <button class="btn_control" :class="!isTimerActive ? { 'on' : true } : { 'off' : isTimerActive }" type="button" @click="reset()">RESET</button>
+
+    </div>
+</template>
+
+
+

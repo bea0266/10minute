@@ -96,7 +96,8 @@
 }
 
 #task-list {
-    width: calc(100% - 550px);
+    width: calc(100% - 650px);
+    min-width: 250px;
     box-shadow:-5px 10px 5px #dedcdc;
     border-radius: 10px;
     background-color: #e7e7e7;
